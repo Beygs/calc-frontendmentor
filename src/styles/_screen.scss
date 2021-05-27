@@ -1,0 +1,25 @@
+$screen-height: 4rem;
+
+.screen {
+    @include themed() {
+        background: t("scr-bg");
+    }
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 1rem 0;
+    padding: $calc-padding;
+    height: $screen-height;
+    border-radius: $calc-bradius;
+    .outer-result {
+        width: $calc-width - $calc-padding;
+        text-align: right;
+        overflow: hidden;
+        .result {
+            @include themed() {
+                color: t("headings");
+            }
+            float: right;
+        }
+    }
+}

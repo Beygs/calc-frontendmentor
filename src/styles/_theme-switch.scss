@@ -1,0 +1,60 @@
+.themes-toggle-component {
+    width: 35%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    font-size: 0.4rem;
+    .theme-title {
+        text-transform: uppercase;
+    }
+    .themes-toggle {
+        display: flex;
+        flex-direction: column;
+        align-items: space-between;
+        .toggle-numbers {
+            display: flex;
+            justify-content: space-around;
+        }
+        .theme-switch {
+            width: 6em;
+            height: 2.2em;
+            @include themed() {
+                background-color: t("keypad-bg");
+            }
+            border-radius: 2em;
+            .theme-switch-buttons {
+                display: flex;
+                width: 100%;
+                height: 100%;
+                button {
+                    width: 100%;
+                    border: none;
+                    background-color: transparent;
+                    cursor: pointer;
+                }
+            }
+            .round {
+                height: 1.4em;
+                width: 1.4em;
+                position: relative;
+                top: -2.2em;
+                margin: 0.4em;
+                border-radius: 50%;
+                cursor: pointer;
+                @include themed() {
+                    background-color: t("eq-key-bg");
+                }
+                transition: all 0.3s ease;
+            }
+            .select-theme1 {
+                transform: translateX(0);
+            }
+            .select-theme2 {
+                transform: translateX(2em);
+            }
+            .select-theme3 {
+                transform: translateX(3.8em);
+            }
+        }
+    }
+}

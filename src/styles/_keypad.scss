@@ -1,0 +1,78 @@
+$key-font-size: 0.7rem;
+$key-width: 2.7rem;
+@use "sass:math";
+
+.keypad {
+    @include themed() {
+        background-color: t("keypad-bg");
+    }
+    height: 3 * $screen-height;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: $calc-padding;
+    border-radius: $calc-bradius;
+    .row {
+        display: flex;
+        justify-content: space-between;
+        .key {
+            height: 1.5rem;
+            width: $key-width;
+            display: grid;
+            place-content: center;
+            border-radius: $calc-bradius;
+            border: none;
+            @include themed() {
+                background-color: t("light-key-bg");
+                box-shadow: 0 0.25em 0 0 t("light-key-shadow");
+            }
+            .key-value {
+                font-size: $key-font-size;
+                height: $key-font-size;
+                @include themed() {
+                    color: t("text");
+                }
+            }
+            &:active {
+                transform: translateY(0.25em);
+                box-shadow: none;
+            }
+        }
+
+        .del-key,
+        .reset-key {
+            @include themed() {
+                background-color: t("key-bg");
+                box-shadow: 0 0.25em 0 0 t("key-shadow");
+            }
+            .key-value {
+                font-size: $key-font-size * 0.8;
+                height: $key-font-size * 0.8;
+                text-transform: uppercase;
+                color: white!important;
+            }
+            &:active {
+                box-shadow: none;
+            }
+        }
+        .reset-key,
+        .eq-key {
+            width: ($key-width * 2) + math.div($calc-width - 2 * $calc-padding - 4 * $key-width, 3);
+        }
+        .eq-key {
+            @include themed() {
+                background-color: t("eq-key-bg");
+                box-shadow: 0 0.25em 0 0 t("eq-key-shadow");
+            }
+            .key-value {
+                @include themed() {
+                    color: t("eq-text")!important;
+                }
+            }
+            &:active {
+                box-shadow: none;
+            }
+        }
+    }
+}
