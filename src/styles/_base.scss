@@ -44,6 +44,7 @@ body,
         transform: translateX(-50%);
         font-size: 12px;
         opacity: 0.7;
+        text-align: center;
         @include themed() {
             color: t("headings");
         }
