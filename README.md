@@ -30,7 +30,7 @@ Users should be able to:
 ### Links
 
 - [Solution URL](https://github.com/Beygs/calc-frontendmentor)
-- [Live Site URL](https://happy-khorana-24ed16.netlify.app/)
+- [Live Site URL](https://blissful-babbage-7d9f31.netlify.app/)
 
 ## My process
 
