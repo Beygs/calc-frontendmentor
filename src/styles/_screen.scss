@@ -7,30 +7,35 @@ $screen-height: 4rem;
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    padding: $calc-padding;
     margin: 1rem 0;
     height: $screen-height;
     border-radius: $calc-bradius;
-    .outer-result {
-        width: $calc-width - $calc-padding;
+    .inner-screen {
+        width: $calc-width - $calc-padding * 2;
         display: grid;
         grid-template-rows: 1rem auto;
-        justify-items: right;
         overflow: hidden;
-        padding: $calc-padding;
+        text-align: right;
         height: 100%;
         .result,
         .memory {
             @include themed() {
                 color: t("headings");
             }
-            float: right;
         }
         .memory {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             grid-row: 1 / 2;
         }
-        .result {
+        .outer-result {
+            width: 100%;
+            text-align: right;
+            overflow: hidden;
             grid-row: 2 / 3;
+            .result {
+                float: right;
+            }
         }
     }
 }
