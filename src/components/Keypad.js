@@ -1,7 +1,47 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Key from "./Key";
 
 const Keypad = ({ result, setResult, memory, setMemory, operator, setOperator }) => {
+
+    useEffect(() => {
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.addEventListener("keydown", handleKeyDown);
+    });
+
+    const handleKeyDown = (e) => {
+        e.preventDefault();
+        const current = e.key;
+        const values = [
+            "0", 
+            "1", 
+            "2", 
+            "3", 
+            "4", 
+            "5", 
+            "6", 
+            "7", 
+            "8", 
+            "9", 
+        ]
+        const operators = [
+            "+",
+            "-",
+            "*",
+            "/",
+            "=",
+        ]
+        if (values.includes(current)) {
+            handleNumber(current);
+        } else if (operators.includes(current)) {
+            handleCalc(current !== "*" ? current : "x");
+        } else if (current === ".") {
+            handleDot();
+        } else if (current === "Backspace") {
+            handleDel();
+        } else if (current.toLowerCase() === "r") {
+            handleReset();
+        }
+    }
     
     const handleNumber = (num) => {
         const num1 = result;

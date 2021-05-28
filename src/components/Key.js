@@ -1,7 +1,7 @@
 import React from "react";
 
 const Key = ({value, action}) => {
-    
+
     const handleClick = (e) => {
         action(e.target.innerText);
     }
