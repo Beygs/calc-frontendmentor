@@ -1,14 +1,17 @@
-import React, { useEffect } from "react";
+import React, { Component } from "react";
 import Key from "./Key";
 
-const Keypad = ({ result, setResult, memory, setMemory, operator, setOperator }) => {
+class Keypad extends Component {
 
-    useEffect(() => {
-        window.addEventListener("keydown", handleKeyDown);
-        return () => window.addEventListener("keydown", handleKeyDown);
-    });
+    componentDidMount() {
+        document.addEventListener("keydown", this.handleKeyDown);
+    }
+  
+    componentWillUnmount() {
+        document.removeEventListener("keydown", this.handleKeyDown);
+    }
 
-    const handleKeyDown = (e) => {
+    handleKeyDown = (e) => {
         e.preventDefault();
         const current = e.key;
         const values = [
@@ -31,37 +34,37 @@ const Keypad = ({ result, setResult, memory, setMemory, operator, setOperator })
             "=",
         ]
         if (values.includes(current)) {
-            handleNumber(current);
+            this.handleNumber(current);
         } else if (operators.includes(current)) {
-            handleCalc(current !== "*" ? current : "x");
+            this.handleCalc(current !== "*" ? current : "x");
         } else if (current === ".") {
-            handleDot();
+            this.handleDot();
         } else if (current === "Backspace") {
-            handleDel();
+            this.handleDel();
         } else if (current.toLowerCase() === "r") {
-            handleReset();
+            this.handleReset();
         }
     }
     
-    const handleNumber = (num) => {
-        const num1 = result;
-        const op = operator;
+    handleNumber = (num) => {
+        const num1 = this.props.result;
+        const op = this.props.operator;
 
         if (op === "=") {
-            setResult(num);
-            setOperator("");
+            this.props.setResult(num);
+            this.props.setOperator("");
         } else {
-            setResult(num1 === "0" ? num : `${num1}${num}`);
+            this.props.setResult(num1 === "0" ? num : `${num1}${num}`);
         }
     }
 
-    const handleCalc = (op) => {
-        const num = Number(result);
-        const num2 = memory;
-        const calc = operator;
+    handleCalc = (op) => {
+        const num = Number(this.props.result);
+        const num2 = this.props.memory;
+        const calc = this.props.operator;
         let res;
         
-        setOperator(op);
+        this.props.setOperator(op);
 
         switch(calc) {
             case "+":
@@ -81,67 +84,69 @@ const Keypad = ({ result, setResult, memory, setMemory, operator, setOperator })
                 break;
         }
         if (op === "=") {
-            setResult(res.toString());
-            setMemory(0);
+            this.props.setResult(res.toString());
+            this.props.setMemory(0);
         } else {
-            setResult("0");
-            setMemory(res);
+            this.props.setResult("0");
+            this.props.setMemory(res);
         }
     }
 
-    const handleDot = () => {
-        const num = result;
-        setResult(num.includes(".") ? num : `${num}.`);
+    handleDot = () => {
+        const num = this.props.result;
+        this.props.setResult(num.includes(".") ? num : `${num}.`);
     }
 
-    const handleDel = () => {
-        const num = result;
+    handleDel = () => {
+        const num = this.props.result;
         const del = num.slice(0, num.length - 1);
         if (del.length === 0) {
-            setResult("0");
+            this.props.setResult("0");
         } else {
-            setResult(del);
+            this.props.setResult(del);
         }
     }
 
-    const handleReset = () => {
-        setResult("0");
-        setMemory(0);
-        setOperator("");
+    handleReset = () => {
+        this.props.setResult("0");
+        this.props.setMemory(0);
+        this.props.setOperator("");
     }
     
-    return (
-        <div className="keypad">
-            <div className="row">
-                <Key value="7" action={handleNumber} />
-                <Key value="8" action={handleNumber} />
-                <Key value="9" action={handleNumber} />
-                <Key value="del" action={handleDel} />
+    render () {
+        return (
+            <div className="keypad">
+                <div className="row">
+                    <Key value="7" action={this.handleNumber} />
+                    <Key value="8" action={this.handleNumber} />
+                    <Key value="9" action={this.handleNumber} />
+                    <Key value="del" action={this.handleDel} />
+                </div>
+                <div className="row">
+                    <Key value="4" action={this.handleNumber} />
+                    <Key value="5" action={this.handleNumber} />
+                    <Key value="6" action={this.handleNumber} />
+                    <Key value="+" action={this.handleCalc} />
+                </div>
+                <div className="row">
+                    <Key value="1" action={this.handleNumber} />
+                    <Key value="2" action={this.handleNumber} />
+                    <Key value="3" action={this.handleNumber} />
+                    <Key value="-" action={this.handleCalc} />
+                </div>
+                <div className="row">
+                    <Key value="." action={this.handleDot} />
+                    <Key value="0" action={this.handleNumber} />
+                    <Key value="/" action={this.handleCalc} />
+                    <Key value="x" action={this.handleCalc} />
+                </div>
+                <div className="row">
+                    <Key value="reset" action={this.handleReset} />
+                    <Key value="=" action={this.handleCalc} />
+                </div>
             </div>
-            <div className="row">
-                <Key value="4" action={handleNumber} />
-                <Key value="5" action={handleNumber} />
-                <Key value="6" action={handleNumber} />
-                <Key value="+" action={handleCalc} />
-            </div>
-            <div className="row">
-                <Key value="1" action={handleNumber} />
-                <Key value="2" action={handleNumber} />
-                <Key value="3" action={handleNumber} />
-                <Key value="-" action={handleCalc} />
-            </div>
-            <div className="row">
-                <Key value="." action={handleDot} />
-                <Key value="0" action={handleNumber} />
-                <Key value="/" action={handleCalc} />
-                <Key value="x" action={handleCalc} />
-            </div>
-            <div className="row">
-                <Key value="reset" action={handleReset} />
-                <Key value="=" action={handleCalc} />
-            </div>
-        </div>
-    )
+        )
+    }
 }
 
 export default Keypad;
