@@ -8,18 +8,29 @@ $screen-height: 4rem;
     align-items: center;
     justify-content: flex-end;
     margin: 1rem 0;
-    padding: $calc-padding;
     height: $screen-height;
     border-radius: $calc-bradius;
     .outer-result {
         width: $calc-width - $calc-padding;
-        text-align: right;
+        display: grid;
+        grid-template-rows: 1rem auto;
+        justify-items: right;
         overflow: hidden;
-        .result {
+        padding: $calc-padding;
+        height: 100%;
+        .result,
+        .memory {
             @include themed() {
                 color: t("headings");
             }
             float: right;
+        }
+        .memory {
+            font-size: 0.8rem;
+            grid-row: 1 / 2;
+        }
+        .result {
+            grid-row: 2 / 3;
         }
     }
 }

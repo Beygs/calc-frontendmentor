@@ -7,14 +7,14 @@ const Key = ({value, action}) => {
     }
     
     return (
-        <button 
+        <div 
             className={`key ${value === "del" ? "del-key" : 
                 value === "reset" ? "reset-key" : 
                 value === "=" ? "eq-key" : ""}`}
             onClick={handleClick}
         >
             <div className="key-value">{value}</div>
-        </button>
+        </div>
     )
 }
 

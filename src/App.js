@@ -40,7 +40,11 @@ function App() {
             <h1 className="title">calc</h1>
             <ThemesToggle theme={theme} setTheme={setTheme} />
           </header>
-          <Screen result={result} resultSize={resultSize} />
+          <Screen 
+            result={result} 
+            resultSize={resultSize}
+            memory={memory}
+            operator={operator} />
           <Keypad
              result={result}
              setResult={setResult}
