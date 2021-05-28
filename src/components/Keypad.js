@@ -104,12 +104,16 @@ const Keypad = ({ result, setResult, memory, setMemory, operator, setOperator })
     }
 
     const handleDel = () => {
-        const num = result;
-        const del = num.slice(0, num.length - 1);
-        if (del.length === 0) {
-            setResult("0");
+        if (operator === "0" || operator === "=") {
+            handleReset();
         } else {
-            setResult(del);
+            const num = result;
+            const del = num.slice(0, num.length - 1);
+            if (del.length === 0) {
+                setResult("0");
+            } else {
+                setResult(del);
+            }
         }
     }
 
