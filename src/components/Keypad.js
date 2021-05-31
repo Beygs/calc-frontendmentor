@@ -68,6 +68,8 @@ const Keypad = ({ result, setResult, memory, setMemory, operator, setOperator })
             setResult("OH SHI💥💥💥💥");
             setOperator("0");
             setMemory("You divided by ");
+        } else if (calc === "0") {
+            handleReset();
         } else {    
             setOperator(op);
 
@@ -100,7 +102,12 @@ const Keypad = ({ result, setResult, memory, setMemory, operator, setOperator })
 
     const handleDot = () => {
         const num = result;
-        setResult(num.includes(".") ? num : `${num}.`);
+        const op = operator;
+        if (op === "=" || op === "&") {
+            handleReset();
+        } else {
+            setResult(num.includes(".") ? num : `${num}.`);
+        }
     }
 
     const handleDel = () => {
